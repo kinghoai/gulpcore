@@ -14,6 +14,7 @@ gulp.task('dev', () => {
     notify: false
   })
   gulp.watch("./templates/**/*.pug", pages).on('change', browserSync.reload);
+  gulp.watch("./templates/images/**/*", images).on('change', browserSync.reload);
 });
 
 function pages() {
@@ -24,4 +25,11 @@ function pages() {
     .pipe(gulp.dest('./build/'))
 }
 
+function images() {
+  return gulp.src('./templates/images/**/*')
+    .pipe(gulp.dest('./build/images'))
+}
+
+
 exports.pages = pages;
+exports.images = images;
