@@ -16,6 +16,8 @@ gulp.task('dev', () => {
   gulp.watch("./templates/**/*.pug", pages).on('change', browserSync.reload);
   gulp.watch("./templates/images/**/*", images).on('change', browserSync.reload);
   gulp.watch("./templates/js/*", scripts).on('change', browserSync.reload);
+  gulp.watch("./templates/css/**/*", styles).on('change', browserSync.reload);
+  gulp.watch("./templates/stylus/**/*.styl", styles).on('change', browserSync.reload);
 });
 
 function pages() {
@@ -36,6 +38,18 @@ function scripts() {
     .pipe(gulp.dest('./build/js'))
 }
 
+function styles() {
+  gulp.src('./templates/css/**/*')
+    .pipe(gulp.dest('./build/css'))
+  gulp.src('./templates/stylus/pages/*.styl')
+    .pipe(stylus())
+    .pipe(gulp.dest('./templates/build/css/pages'))
+  return gulp.src('./templates/stylus/main.styl')
+    .pipe(stylus())
+    .pipe(gulp.dest('./build/css'))
+}
+
 exports.pages = pages;
 exports.images = images;
 exports.scripts = scripts;
+exports.styles = styles;
